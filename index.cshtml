@@ -1,0 +1,42 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name=" viewport" content="widht=device-width"/>
+    <title></title>
+</head>
+
+
+<body>
+    <a href="@Url.Action("create","Meeting")"> add new meeeting</a>
+    <table cellpadding="2" cellspacing="2" border="1">
+        <tr>
+            <th> idmeet </th>
+            <th> datemeet  </th>
+            <th> subject </th>
+            <th> description </th>
+            <th> sender  </th>
+
+            <th> classe </th>
+            
+        </tr>
+
+        @foreach(var p in ViewBag.result)
+            {
+
+    <tr>
+        <td>  idmeet </td>
+        <td>  datemeet </td>
+        <td>  subject </td>
+        <td>  description </td>
+        <td>  sender  </td>
+        <td>   classe </td>
+
+
+
+    </tr>
+            }
+    </table> 
+</body>
+</html>
+
