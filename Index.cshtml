@@ -1,34 +1,28 @@
-﻿@model IEnumerable<PI.Models.User>
+﻿@model IEnumerable<PI.Models.Reclamation>
 
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.iduser)
+            @Html.DisplayNameFor(model => model.idR)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.username)
+            @Html.DisplayNameFor(model => model.satisfaction)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.userlastname)
+            @Html.DisplayNameFor(model => model.categorie)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.password)
+            @Html.DisplayNameFor(model => model.parent)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.useremail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.number)
-        </th>
+      
         <th></th>
     </tr>
 
@@ -36,23 +30,18 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.iduser)
+                @Html.DisplayFor(modelItem => item.idR)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.username)
+                @Html.DisplayFor(modelItem => item.satisfaction)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.userlastname)
+                @Html.DisplayFor(modelItem => item.categorie)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.password)
+                @Html.DisplayFor(modelItem => item.parent)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.useremail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.number)
-            </td>
+
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
