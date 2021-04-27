@@ -64,22 +64,29 @@ namespace PI.Controllers
         [HttpGet]
         public ActionResult Edit()
         {
+           
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Edit(int iduser, User user)
+        public ActionResult Edit(User user, int iduser)
         {
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
+            using (var client = new HttpClient())
+            {
 
-            client.PutAsJsonAsync("servlet/updateUser", user).ContinueWith((putTask) => putTask.Result.EnsureSuccessStatusCode());
+                client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
+                var putTask = client.PutAsJsonAsync<User>("servlet/updateUser", user);
+                putTask.Wait();
 
-            return RedirectToAction("Index");
+                var result = putTask.Result;
+                
+                    return RedirectToAction("Index");
 
+            }
         }
 
+        
 
 
     }
