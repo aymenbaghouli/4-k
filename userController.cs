@@ -62,34 +62,75 @@ namespace PI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit()
+        public ActionResult Edit(int iduser)
         {
-           
+
+            User user = null;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
+                //HTTP GET
+                var responseTask = client.GetAsync("servlet/getAllUsers" + iduser.ToString());
+                responseTask.Wait();
+
+                var result = responseTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+                    var readTask = result.Content.ReadAsAsync<User>();
+                    readTask.Wait();
+
+                    user = readTask.Result;
+                }
+            }
+
+            return View(user);
+        }
+
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
+
+                //HTTP POST
+                var putTask = client.PutAsJsonAsync<User>("servlet/updateUser", user);
+                putTask.Wait();
+
+                var result = putTask.Result;
+                if (result.IsSuccessStatusCode)
+                {
+
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult Delete()
+        {
             return View();
         }
 
 
         [HttpPost]
-        public ActionResult Edit(User user, int iduser)
+        public ActionResult Delete(int iduser)
         {
-            using (var client = new HttpClient())
-            {
+            HttpClient Client = new HttpClient();
 
-                client.BaseAddress = new Uri("http://localhost:8082/SpringMVC/");
-                var putTask = client.PutAsJsonAsync<User>("servlet/updateUser", user);
-                putTask.Wait();
 
-                var result = putTask.Result;
-                
-                    return RedirectToAction("Index");
 
-            }
+            var response = Client.DeleteAsync("servlet/deleteUser" + iduser.ToString()).ContinueWith(DeleteTask => DeleteTask.Result.EnsureSuccessStatusCode());
+
+
+            return RedirectToAction("Index");
         }
-
-        
-
-
     }
+
+
 }
 
 
